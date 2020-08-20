@@ -231,10 +231,7 @@ class Student extends Lambdasian {
     sprintChallenge(subject) { return `${student.name} has begun sprint challenge on ${subject}`; }
 
 }
-const ಠ_ಠ = 5;
-const ಠ_ = 5;
-const ಠಠ = 5;
-const ʘ = 4;
+
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
@@ -248,9 +245,21 @@ const ʘ = 4;
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+class ProjectManager extends Instructor {
+    constructor($) {
+        super($);
+        this.gradClassName = $.gradClassName;
+        this.favInstructor = $.favInstructor;
+    }
 
+    // + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
+    standup(slack_channel) { return `${this.name} announces to ${this.channel}, @channel standy times!`; }
+
+    // + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
+    debugsCode(student, subject) { return `${this.name} debugs ${student.name}'s code on ${subject}`;}
 }
+
+
 
 /*
   STRETCH PROBLEM (no tests!)
