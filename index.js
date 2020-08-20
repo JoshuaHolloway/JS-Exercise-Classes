@@ -160,7 +160,14 @@ console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-
+    constructor(x) {
+        this.name = x.name;
+        this.age = x.age;
+        this.location = x.location;
+    }
+    speak() {
+        console.log(`Hello my name is ${this.name}, I am from ${this.location}`);
+    }
 }
 
 /*
