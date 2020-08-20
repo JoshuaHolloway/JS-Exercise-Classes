@@ -1,3 +1,4 @@
+console.log('index.js');
 /*
   EXAMPLE TASK:
     - Write an Airplane class whose constructor initializes `name` from an argument.
@@ -40,9 +41,46 @@ class Airplane {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
+console.log('----------Task-1----------');
 class Person {
+  constructor(x) {
+      this.name = x.name;
+      this.age = x.age;
+      this.stomach = [];
+  }
+  eat(food) {
+    if (this.stomach.length < 10) 
+        this.stomach.push(food);
+  }
+  poop() {
+    this.stomach = [];
+  };
 
+  // to string
+  toString() {
+    return `${this.name}, ${this.age}`;
+  };
 }
+console.log('Create 3 people:');
+const person_1 = new Person("steve", 53);
+const person_2 = new Person("allen", 32);
+const person_3 = new Person("jessica", 43);
+console.log(person_1);
+console.log(person_2);
+console.log(person_3);
+
+console.log('Person 3 eats:');
+person_3.eat("tacos");
+person_3.eat("pizza");
+person_3.eat("ramen");
+console.log(person_3);
+
+console.log('Person 3 poops:');
+person_3.poop();
+console.log(person_3);
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
+
 
 /*
   TASK 2
@@ -58,9 +96,56 @@ class Person {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-class Car {
+console.log('----------Task-2----------');
 
+class Car {
+    constructor(model, mpg) {
+        this.model = model;
+        this.milesPerGallon = mpg;
+        this.tank = 0;
+        this.odometer = 0;   
+    }
+    
+    fill(gallons) {
+        this.tank += gallons;
+    };
+
+    // Stretch 2.1:
+    drive(miles) {
+        
+        // Stetch 2.2: -Requirement 1: 
+        //  -A car which runs out of `fuel` while driving can't drive any more distance.
+        //  -The `drive` method should return a string "I ran out of fuel at x miles!".
+        if (this.tank <= 0) {
+            console.log(`I ran out of fuel at ${this.odometer} miles!`);
+        } else {
+
+            // Stretch 2.1 - Requirement 1: The distance driven causes the `odometer` to go up:
+            this.odometer += miles;
+
+            // Stretch 2.1 - Requirement 2:
+            // -The distance driven causes the the `tank` to go down taking `milesPerGallon` into account.
+            //
+            // (gallon / mile)  =  (1 / milesPerGallon)
+            // miles * ( gallon / mile ) = gallons
+            const gallons_per_mile = (1 / this.milesPerGallon);
+            const gallons_used = miles * gallons_per_mile;
+            this.tank -= gallons_used;
+
+            console.log(`After driving (another) ${miles}-miles the odometer is at: ${this.odometer} and the gas-level is at: ${this.tank}!`);
+
+        }
+    };
 }
+
+// Test car
+const car = new Car('chevy', 10); // Create chevy car with 10-mpg
+car.fill(2);  // -fill with 2 gallons
+car.drive(10); // -drive 10 miles
+car.drive(10); // -drive 10 more miles (at the end of this 10 miles we should be out of gas)
+car.drive(10); // -attempt to drive 10 more miles. Shold be out of gas though!!!
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
+console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
 
 /*
   TASK 3
@@ -140,17 +225,3 @@ class ProjectManager {
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
-
-///////// END OF CHALLENGE /////////
-///////// END OF CHALLENGE /////////
-///////// END OF CHALLENGE /////////
-if (typeof exports !== 'undefined') {
-  module.exports = module.exports || {}
-  if (Airplane) { module.exports.Airplane = Airplane }
-  if (Person) { module.exports.Person = Person }
-  if (Car) { module.exports.Car = Car }
-  if (Lambdasian) { module.exports.Lambdasian = Lambdasian }
-  if (Instructor) { module.exports.Instructor = Instructor }
-  if (Student) { module.exports.Student = Student }
-  if (ProjectManager) { module.exports.ProjectManager = ProjectManager }
-}
