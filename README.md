@@ -1,3 +1,5 @@
+# (josh)
+
 # The _class_ Syntax
 
 This challenge focuses on using the new for ES6 `class` syntax.
