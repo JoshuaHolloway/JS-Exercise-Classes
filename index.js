@@ -215,10 +215,26 @@ class Instructor extends Lambdasian{
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
+class Student extends Lambdasian {
+    constructor(ಠ_ಠ) {
+        super(ಠ_ಠ);
+        this.previousBackground = ಠ_ಠ.previousBackground;
+        this.className = ಠ_ಠ.className;
+        this.favSubjects = ಠ_ಠ.favSubjects; // an array of the student's favorite subjects ['HTML', 'CSS', 'JS']
+    }
+
+    // + `listSubjects` a method that returns all of the student's favSubjects in a single string: `Loving HTML, CSS, JS!`.
+    listSubjects() { return this.favSubjectgs; }
+    // + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
+    PRAssignment(subject) { return `${student.name} has submitted a PR for ${subject}`; }
+    // + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
+    sprintChallenge(subject) { return `${student.name} has begun sprint challenge on ${subject}`; }
 
 }
-
+const ಠ_ಠ = 5;
+const ಠ_ = 5;
+const ಠಠ = 5;
+const ʘ = 4;
 /*
   TASK 6
     - Write a ProjectManager class extending Instructor.
