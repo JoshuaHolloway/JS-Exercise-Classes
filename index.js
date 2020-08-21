@@ -43,9 +43,9 @@ class Airplane {
 
 console.log('----------Task-1----------');
 class Person {
-  constructor(x) {
-      this.name = x.name;
-      this.age = x.age;
+  constructor(_) {
+      this.name = _.name;
+      this.age = _.age;
       this.stomach = [];
   }
   eat(food) {
@@ -160,10 +160,10 @@ console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
         + {name} and {location} of course come from the instance's own properties.
 */
 class Lambdasian {
-    constructor(x) {
-        this.name = x.name;
-        this.age = x.age;
-        this.location = x.location;
+    constructor(_) {
+        this.name = _.name;
+        this.age = _.age;
+        this.location = _.location;
     }
     speak() {
         console.log(`Hello my name is ${this.name}, I am from ${this.location}`);
@@ -198,6 +198,12 @@ class Instructor extends Lambdasian{
     demo(subject) { return `Today we are learning about ${subject}`;}
     grade(student, subject) { return `${student.name} receives a perfect score on ${subject}`;}
 
+
+    // Stretch 2: Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+    modify_students_grade(student) {
+      const rand = Math.round(Math.random() * 10) - 5; // Real number in [-5,5]
+      student.grade += rand;
+    }
 }
 
 /*
@@ -221,15 +227,19 @@ class Student extends Lambdasian {
         this.previousBackground = ಠ_ಠ.previousBackground;
         this.className = ಠ_ಠ.className;
         this.favSubjects = ಠ_ಠ.favSubjects; // an array of the student's favorite subjects ['HTML', 'CSS', 'JS']
+
+        // - Stretch 1: Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
+        this.grade = Math.round(Math.random() * 100); // Integer in [0,100]
     }
 
     // + `listSubjects` a method that returns all of the student's favSubjects in a single string: `Loving HTML, CSS, JS!`.
-    listSubjects() { return this.favSubjectgs; }
+    listSubjects() { return this.favSubjects; }
     // + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
-    PRAssignment(subject) { return `${student.name} has submitted a PR for ${subject}`; }
+    PRAssignment(subject) { return `${this.name} has submitted a PR for ${subject}`; }
     // + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
-    sprintChallenge(subject) { return `${student.name} has begun sprint challenge on ${subject}`; }
+    sprintChallenge(subject) { return `${this.name} has begun sprint challenge on ${subject}`; }
 
+    print_grade() { console.log(`Grade: ${this.grade}`); }
 }
 
 /*
@@ -259,13 +269,36 @@ class ProjectManager extends Instructor {
     debugsCode(student, subject) { return `${this.name} debugs ${student.name}'s code on ${subject}`;}
 }
 
-
-
 /*
   STRETCH PROBLEM (no tests!)
-    - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
-    - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
-    - Add a graduate method to a student.
+    - Stretch 1: Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
+    - Stretch 2: Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+    - Stretch 3: Add a graduate method to a student.
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+
+const student = new Student({ // Student <- Lambdasian
+  name: 'steve',                          // Lambdasian
+  age: '42',                              // Lambdasian
+  location: 'seattle',                    // Lambdasian
+  previousBackground: 'artist',           // Student
+  className: 'art',                       // Student
+  favSubjects: ['science', 'literature'], // Student
+});
+
+const pm = new ProjectManager({ // ProjectManager <- Instructor <- Lambdasian
+  name: 'alecia',                        // Lambdasian
+  age: '36',                             // Lambdasian
+  location: 'seattle',                   // Lambdasian
+  specialty: 'javascript',               // Instructor
+  favLanguage: 'cobal',                  // Instructor
+  catchPhrase: 'Hello World!',           // Instructor
+  gradClassName: 'grad-class-name',      // ProjectManager
+  favInstructor: 'fav-instructor'        // ProjectManager
+});
+
+student.print_grade();
+pm.modify_students_grade(student);
+student.print_grade();
