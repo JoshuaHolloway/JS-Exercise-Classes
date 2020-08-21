@@ -202,6 +202,9 @@ class Instructor extends Lambdasian{
     // Stretch 2: Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
     modify_students_grade(student) {
       const rand = Math.round(Math.random() * 10) - 5; // Real number in [-5,5]
+
+      console.log(`Instructor or PM: ${this.constructor.name},  added (${rand})-points to the students grade`);
+
       student.grade += rand;
     }
 }
@@ -299,6 +302,16 @@ const pm = new ProjectManager({ // ProjectManager <- Instructor <- Lambdasian
   favInstructor: 'fav-instructor'        // ProjectManager
 });
 
+const instructor = new Instructor({ // Instructor <- Lambdasian
+  name: 'nancy',                         // Lambdasian
+  age: '51',                             // Lambdasian
+  location: 'austin',                    // Lambdasian
+  specialty: 'node',                     // Instructor
+  favLanguage: 'smalltalk',              // Instructor
+  catchPhrase: 'Goodbye World!',         // Instructor
+});
+
 student.print_grade();
 pm.modify_students_grade(student);
+instructor.modify_students_grade(student);
 student.print_grade();
