@@ -224,6 +224,7 @@ class Instructor extends Lambdasian{
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
+var p5 = new p5();
 class Student extends Lambdasian {
     constructor(ಠ_ಠ) {
         super(ಠ_ಠ);
@@ -232,7 +233,16 @@ class Student extends Lambdasian {
         this.favSubjects = ಠ_ಠ.favSubjects; // an array of the student's favorite subjects ['HTML', 'CSS', 'JS']
 
         // - Stretch 1: Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
-        this.grade = Math.round(Math.random() * 100); // Integer in [0,100]
+        // this.grade = Math.round(Math.random() * 100); // Integer in [0,100]
+        const mean = 80;
+        const std = 10;
+        const gaussian_int = Math.round(p5.randomGaussian(mean, std));
+        // console.log(`randomGaussian(mean, std): ${gaussian_int}`);
+
+        // NOTE: -To generate a somewhat realistic grade for the student I'm 
+        //        sampling from a bell-shaped curve centered at 80 with a 
+        //        standard deviation of 10.
+        this.grade = gaussian_int;
     }
 
     // + `listSubjects` a method that returns all of the student's favSubjects in a single string: `Loving HTML, CSS, JS!`.
