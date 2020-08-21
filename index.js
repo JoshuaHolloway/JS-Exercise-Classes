@@ -203,9 +203,10 @@ class Instructor extends Lambdasian{
     modify_students_grade(student) {
       const rand = Math.round(Math.random() * 10) - 5; // Real number in [-5,5]
 
-      console.log(`Instructor or PM: ${this.constructor.name},  added (${rand})-points to the students grade`);
+      const instructor_or_pm = this.constructor.name;
+      console.log(`${instructor_or_pm} added (${rand})-points to the students grade`);
 
-      student.grade += rand;
+      student.grade = Math.min(student.grade + rand, 100);
     }
 }
 
@@ -235,14 +236,17 @@ class Student extends Lambdasian {
         // - Stretch 1: Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
         // this.grade = Math.round(Math.random() * 100); // Integer in [0,100]
         const mean = 80;
-        const std = 10;
+        const std = 15;
         const gaussian_int = Math.round(p5.randomGaussian(mean, std));
         // console.log(`randomGaussian(mean, std): ${gaussian_int}`);
 
         // NOTE: -To generate a somewhat realistic grade for the student I'm 
         //        sampling from a bell-shaped curve centered at 80 with a 
         //        standard deviation of 10.
-        this.grade = gaussian_int;
+        this.grade = Math.min(gaussian_int, 100); // cap students grade at 100
+
+        // For stretch 3
+        this.graduated = false;
     }
 
     // + `listSubjects` a method that returns all of the student's favSubjects in a single string: `Loving HTML, CSS, JS!`.
@@ -253,6 +257,15 @@ class Student extends Lambdasian {
     sprintChallenge(subject) { return `${this.name} has begun sprint challenge on ${subject}`; }
 
     print_grade() { console.log(`Grade: ${this.grade}`); }
+
+    // - Stretch 3: Add a graduate method to a student.
+    //   + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
+    //   + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
+    can_student_graduate() {
+      if (this.grade > 70)
+        this.graduated = true;
+      return this.graduated;
+    }
 }
 
 /*
@@ -325,3 +338,4 @@ student.print_grade();
 pm.modify_students_grade(student);
 instructor.modify_students_grade(student);
 student.print_grade();
+console.log(`Is student ready to graduate: ${student.can_student_graduate()}`);
