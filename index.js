@@ -1,4 +1,3 @@
-console.log('index.js');
 /*
   EXAMPLE TASK:
     - Write an Airplane class whose constructor initializes `name` from an argument.
@@ -22,6 +21,7 @@ class Airplane {
   }
 }
 
+
 /*
 // 👇 COMPLETE YOUR WORK BELOW 👇
 // 👇 COMPLETE YOUR WORK BELOW 👇
@@ -41,11 +41,11 @@ class Airplane {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-console.log('----------Task-1----------');
+// console.log('----------Task-1----------');
 class Person {
-  constructor(_) {
-      this.name = _.name;
-      this.age = _.age;
+  constructor(name, age) {
+      this.name = name;
+      this.age = age;
       this.stomach = [];
   }
   eat(food) {
@@ -61,25 +61,13 @@ class Person {
     return `${this.name}, ${this.age}`;
   };
 }
-console.log('Create 3 people:');
-const person_1 = new Person("steve", 53);
-const person_2 = new Person("allen", 32);
-const person_3 = new Person("jessica", 43);
-console.log(person_1);
-console.log(person_2);
-console.log(person_3);
 
-console.log('Person 3 eats:');
-person_3.eat("tacos");
-person_3.eat("pizza");
-person_3.eat("ramen");
-console.log(person_3);
 
-console.log('Person 3 poops:');
-person_3.poop();
-console.log(person_3);
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+
+
+
+
 
 
 /*
@@ -96,7 +84,7 @@ console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-console.log('----------Task-2----------');
+// console.log('----------Task-2----------');
 
 class Car {
     constructor(model, mpg) {
@@ -120,32 +108,46 @@ class Car {
             console.log(`I ran out of fuel at ${this.odometer} miles!`);
         } else {
 
+
+            const miles_can_drive = this.milesPerGallon * this.tank; // miles remaining on tank
+            const miles_drove = Math.min(miles, miles_can_drive);
+            
+
             // Stretch 2.1 - Requirement 1: The distance driven causes the `odometer` to go up:
-            this.odometer += miles;
+            this.odometer += miles_drove;
 
             // Stretch 2.1 - Requirement 2:
             // -The distance driven causes the the `tank` to go down taking `milesPerGallon` into account.
             //
             // (gallon / mile)  =  (1 / milesPerGallon)
             // miles * ( gallon / mile ) = gallons
-            const gallons_per_mile = (1 / this.milesPerGallon);
-            const gallons_used = miles * gallons_per_mile;
+            const gallons_used = miles_drove / this.milesPerGallon;
             this.tank -= gallons_used;
 
-            console.log(`After driving (another) ${miles}-miles the odometer is at: ${this.odometer} and the gas-level is at: ${this.tank}!`);
+            return `After driving (another) ${miles}-miles the odometer is at: ${this.odometer} and the gas-level is at: ${this.tank}!`;
 
         }
-    };
+    }
+
+    print_state() {
+      console.log('==========================================================');
+      console.log(`Odometer: ${this.odometer},  gas-level: ${this.tank},  can drive another: ${this.milesPerGallon * this.tank}-miles`);
+      console.log('==========================================================');
+    }
 }
 
-// Test car
-const car = new Car('chevy', 10); // Create chevy car with 10-mpg
-car.fill(2);  // -fill with 2 gallons
-car.drive(10); // -drive 10 miles
-car.drive(10); // -drive 10 more miles (at the end of this 10 miles we should be out of gas)
-car.drive(10); // -attempt to drive 10 more miles. Shold be out of gas though!!!
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
-console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
   TASK 3
@@ -166,9 +168,15 @@ class Lambdasian {
         this.location = _.location;
     }
     speak() {
-        console.log(`Hello my name is ${this.name}, I am from ${this.location}`);
+        return `Hello my name is ${this.name}, I am from ${this.location}`;
     }
 }
+
+
+
+
+
+
 
 /*
   TASK 4
@@ -188,7 +196,7 @@ class Instructor extends Lambdasian{
     constructor(_) {
         super(_);
         this.specialty = _.specialty;
-        this.favLanguage = _.language;
+        this.favLanguage = _.favLanguage;
         this.catchPhrase = _.catchPhrase;
     }
 
@@ -208,7 +216,26 @@ class Instructor extends Lambdasian{
 
       student.grade = Math.min(student.grade + rand, 100);
     }
+
+    print_state() { 
+      console.log(`
+      name: ${this.name} 
+      age: ${this.age} 
+      location: ${this.location} 
+      specialty: ${this.specialty} 
+      favLanguage: ${this.favLanguage} 
+      catchPhrase: ${this.catchPhrase} 
+      `);
+    }
 }
+
+
+
+
+
+
+
+
 
 /*
   TASK 5
@@ -225,25 +252,29 @@ class Instructor extends Lambdasian{
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-var p5 = new p5();
+
 class Student extends Lambdasian {
-    constructor(ಠ_ಠ) {
-        super(ಠ_ಠ);
-        this.previousBackground = ಠ_ಠ.previousBackground;
-        this.className = ಠ_ಠ.className;
-        this.favSubjects = ಠ_ಠ.favSubjects; // an array of the student's favorite subjects ['HTML', 'CSS', 'JS']
+    constructor(_) { // ಠ_ಠ
+        super(_);
+        this.previousBackground = _.previousBackground;
+        this.className = _.className;
+        this.favSubjects = _.favSubjects; // an array of the student's favorite subjects ['HTML', 'CSS', 'JS']
 
         // - Stretch 1: Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
         // this.grade = Math.round(Math.random() * 100); // Integer in [0,100]
         const mean = 80;
         const std = 15;
-        const gaussian_int = Math.round(p5.randomGaussian(mean, std));
+        // const gaussian_int = Math.round(p5.randomGaussian(mean, std));
+        const gaussian_int = 0;
         // console.log(`randomGaussian(mean, std): ${gaussian_int}`);
 
         // NOTE: -To generate a somewhat realistic grade for the student I'm 
         //        sampling from a bell-shaped curve centered at 80 with a 
         //        standard deviation of 10.
-        this.grade = Math.min(gaussian_int, 100); // cap students grade at 100
+        // this.grade = Math.min(gaussian_int, 100); // cap students grade at 100
+        // this.grade = Math.min(bell[student_idx++], 100); // cap students grade at 100
+        this.grade = Math.min(Math.random() * 12 + 70, 100); // cap students grade at 100
+        
 
         // For stretch 3
         this.graduated = false;
@@ -266,7 +297,24 @@ class Student extends Lambdasian {
         this.graduated = true;
       return this.graduated;
     }
+
+    print_state() { 
+      console.log(`
+      name: ${this.name} 
+      age: ${this.age} 
+      location: ${this.location} 
+      specialty: ${this.previousBackground} 
+      favLanguage: ${this.className} 
+      catchPhrase: ${this.favSubjects} 
+      `);
+    }
 }
+
+
+
+
+
+
 
 /*
   TASK 6
@@ -289,11 +337,26 @@ class ProjectManager extends Instructor {
     }
 
     // + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
-    standup(slack_channel) { return `${this.name} announces to ${this.channel}, @channel standy times!`; }
+    standUp(channel) { 
+      return `${this.name} announces to ${channel}, @channel standy times!`; 
+    }
 
     // + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
     debugsCode(student, subject) { return `${this.name} debugs ${student.name}'s code on ${subject}`;}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
   STRETCH PROBLEM (no tests!)
@@ -339,3 +402,23 @@ pm.modify_students_grade(student);
 instructor.modify_students_grade(student);
 student.print_grade();
 console.log(`Is student ready to graduate: ${student.can_student_graduate()}`);
+
+
+
+
+
+
+
+// ///////// END OF CHALLENGE /////////
+// ///////// END OF CHALLENGE /////////
+// ///////// END OF CHALLENGE /////////
+if (typeof exports !== 'undefined') {
+  module.exports = module.exports || {}
+  if (Airplane) { module.exports.Airplane = Airplane }
+  if (Person) { module.exports.Person = Person }
+  if (Car) { module.exports.Car = Car }
+  if (Lambdasian) { module.exports.Lambdasian = Lambdasian }
+  if (Instructor) { module.exports.Instructor = Instructor }
+  if (Student) { module.exports.Student = Student }
+  if (ProjectManager) { module.exports.ProjectManager = ProjectManager }
+}
